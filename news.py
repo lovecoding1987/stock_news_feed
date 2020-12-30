@@ -86,7 +86,7 @@ def main():
         for item in data:
             if find_news(news, item['news_url']) == -1:
                 news.append(item)
-            print(item)
+                print(item)
             #winsound.Beep(freq, duration)
             
 
@@ -101,12 +101,12 @@ def sms():
 
     print("Twilio message id: " + message.sid)
 
-# try:
-#     _thread.start_new_thread(main, ()) 
-# except:
-#     print("Error: unable to start thread")
+try:
+    _thread.start_new_thread(main, ()) 
+except:
+    print("Error: unable to start thread")
 
-# while 1:
-#     pass
+while 1:
+    pass
 
-main()
+#main()
