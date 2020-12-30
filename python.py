@@ -5,8 +5,8 @@ from newsapi import NewsApiClient
 import requests
 import json
 # Init
-import winsound
-import sqlite3
+#import winsound
+#import sqlite3
 duration = 1000  # milliseconds
 freq = 440  # Hz
 import pyfiglet
@@ -71,7 +71,7 @@ def main():
             for i in range( len( response.json()['data'] )):
 
                 jprint(response.json()['data'][i]['date'] +  '******************************************************************        '' title : ' + response.json()['data'][i]['title'] + "************************** news******************************* " +  response.json()['data'][i]['text'] +  " *********************sentiment************************* " + response.json()['data'][i]['sentiment'] )
-                winsound.Beep(freq, duration)
+                #winsound.Beep(freq, duration)
 
 
         time.sleep(3)
