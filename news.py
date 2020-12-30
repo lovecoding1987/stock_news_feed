@@ -86,20 +86,20 @@ def main():
         for item in data:
             if find_news(news, item['news_url']) == -1:
                 news.append(item)
-                message = f"\n============= NEWS =============\nSentiment:{item['sentiment']}\nTitle:{item['title']}\nText:{item['text']}"
-                print(message)
-                #sms(message)
+                text = f"\n============= NEWS =============\nSentiment:{item['sentiment']}\nTitle:{item['title']}\nText:{item['text']}"
+                print(text)
+                #sms(text)
             #winsound.Beep(freq, duration)
             
 
         time.sleep(60)
 
 
-def sms(message): 
+def sms(text): 
     message = twilio_client.messages.create(
         to="+12513090696", 
         from_=twilio_phone_number,
-        body=message
+        body=text
 
     print("Twilio message id: " + message.sid)
 
