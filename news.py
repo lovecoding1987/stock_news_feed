@@ -22,7 +22,7 @@ tickers_str = ",".join(tickers)
 
 stock_token=os.environ.get("stock_token")
 
-stock_news_url =  f"https://stocknewsapi.com/api/v1?tickers={tickers_str}&items=50&date=today&token={stock_token}"
+stock_news_url =  f"https://stocknewsapi.com/api/v1?tickers={tickers_str}&items=50&date=yesterday&token={stock_token}"
 print(stock_news_url)
 
 twilio_account_sid = os.environ.get("twilio_account_sid")
