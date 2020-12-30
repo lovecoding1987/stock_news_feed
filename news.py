@@ -88,7 +88,7 @@ def main():
                 news.append(item)
                 text = f"\n============= NEWS =============\nSentiment: {item['sentiment']}\nTitle: {item['title']}\n\n{item['text']}"
                 print(text)
-                #sms(text)
+                sms(text)
             #winsound.Beep(freq, duration)
             
 
