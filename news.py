@@ -100,8 +100,9 @@ def sms(text):
         to="+12513090696", 
         from_=twilio_phone_number,
         body=text
+    )
 
-    print("Twilio message id: " + message.sid)
+    print(f"Twilio message id: {message.sid}")
 
 try:
     _thread.start_new_thread(main, ()) 
