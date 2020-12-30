@@ -1,0 +1,3 @@
+newsapi-python
+pyfiglet
+python-dotenv
