@@ -86,7 +86,7 @@ def main():
         for item in data:
             if find_news(news, item['news_url']) == -1:
                 news.append(item)
-                text = f"\n============= NEWS =============\nSentiment:{item['sentiment']}\nTitle:{item['title']}\nText:{item['text']}"
+                text = f"\n============= NEWS =============\nSentiment: {item['sentiment']}\nTitle: {item['title']}\n\n{item['text']}"
                 print(text)
                 #sms(text)
             #winsound.Beep(freq, duration)
