@@ -10,14 +10,28 @@ import json
 duration = 1000  # milliseconds
 freq = 440  # Hz
 import pyfiglet
+import _thread
+from twilio.rest import Client
+
 
 
 import time
 
-data = ["AAPL","SQ","PLTR","MSFT","Z","QQQ","SPY","ARKK","TSLA","GME","BABA"]
+tickers = ["AAPL","SQ","PLTR","MSFT","Z","QQQ","SPY","ARKK","TSLA","GME","BABA"]
+tickers_str = ",".join(tickers)
 
 stock_token=os.environ.get("stock_token")
 
+stock_news_url =  f"https://stocknewsapi.com/api/v1?tickers={tickers_str}&items=50&date=today&token={stock_token}"
+print(stock_news_url)
+
+twilio_account_sid = os.environ.get("twilio_account_sid")
+twilio_auth_token = os.environ.get("twilio_auth_token")
+twilio_phone_number = os.environ.get("twilio_phone_number")
+
+twilio_client = Client(twilio_account_sid, twilio_auth_token)
+
+       
 def jprint(obj):
     # create a formatted string of the Python JSON object
     text = json.dumps(obj, sort_keys=True, indent=4)
@@ -50,31 +64,47 @@ def menu():
     if c == 'N':
 
         system.exit()
+        
 
 
+def find_news(news_data, news_url):
+    index = -1
+    for i in range(len(news_data)):
+        item = news_data[i]
+        if item['news_url'] == news_url:
+            index = i
+            break
+
+    return index
 
 
 def main():
+    news = []
     while True:
-        data_str = ",".join(data)
+        response = requests.get(stock_news_url)
+        data = response.json()['data']
+        for item in data:
+            if find_news(news, item['news_url']) == -1:
+                news.append(item)
+                print(item)
+            #winsound.Beep(freq, duration)
+            
+
+        time.sleep(60)
 
 
-        url =  f"https://stocknewsapi.com/api/v1?tickers={data_str}&items=50&date=today&token={stock_token}"
-        print(url)
-        response = requests.get(url)
-        if len(response.json()['data'])== 0:
+def sms(): 
+    message = twilio_client.messages.create(
+        to="+12513090696", 
+        from_=twilio_phone_number,
+        body="Hello from Python!")
 
-            print("no data")
+    print("Twilio message id: " + message.sid)
 
-        else:
+try:
+    _thread.start_new_thread(main, ()) 
+except:
+    print("Error: unable to start thread")
 
-            for i in range( len( response.json()['data'] )):
-
-                jprint(response.json()['data'][i]['date'] +  '******************************************************************        '' title : ' + response.json()['data'][i]['title'] + "************************** news******************************* " +  response.json()['data'][i]['text'] +  " *********************sentiment************************* " + response.json()['data'][i]['sentiment'] )
-                #winsound.Beep(freq, duration)
-
-
-        time.sleep(3)
-
-
-main()
+while 1:
+    pass
